@@ -35,7 +35,7 @@ async function sendMessage() {
     if (!response.ok) throw new Error('Erro HTTP: ' + response.status);
 
     const data = await response.json();
-    const reply = data.reply || data.message || JSON.stringify(data);
+  const reply = data.output || data.reply || data.message || JSON.stringify(data);
 
     typing.remove();
     displayMessage(reply, 'assistant');
@@ -52,3 +52,4 @@ messageInput.addEventListener('keydown', (e) => {
     sendMessage();
   }
 });
+
