@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Fundo em degradê ocupando a tela toda */
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background: radial-gradient(circle at top left, #102a6b 0, #020617 40%, #020617 100%);
+}
+
+/* Wrapper só pra garantir centralização em qualquer situação */
+.page-wrapper {
+    width: 100%;
+    max-width: 480px;
+}
+
+/* Card central */
+.card {
+    background: #020617;
+    border-radius: 24px;
+    padding: 20px 20px 20px;   /* topo menor, tira aquele espação */
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+    text-align: center;        /* pra centralizar logo, título e subtítulo */
+}
+
+/* LOGO CENTRALIZADA E MENOR */
+.logo {
+    width: 200px;          /* ajuste aqui: 80px, 64px, 56px… como preferir */
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 12px;  /* centraliza e dá só um espacinho abaixo */
+}
+
+/* TÍTULO */
+h1 {
+    font-size: 1.4rem;
+    color: #ffffff;
+    margin: 4px 0 6px;    /* margens bem pequenas pra não abrir buraco */
+}
+
+/* SUBTÍTULO */
+.subtitle {
+    color: #cbd5f5;
+    font-size: 0.95rem;
+    margin: 0 0 20px;
+}
+
+/* Área do chat */
+.chat-box {
+    background: #020826;
+    border-radius: 16px;
+    padding: 12px 14px;
+    min-height: 140px;
+    max-height: 260px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    text-align: left;
+    color: #e5e7eb;
+    font-size: 0.9rem;
+}
+
+/* Linha de input + botão */
+.input-row {
+    display: flex;
+    gap: 8px;
+}
+
+/* Input */
+.input-row input[type="text"] {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+/* Botão */
+.input-row button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 999px;
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.input-row button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+.input-row button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+.message {
+    padding: 8px 10px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    max-width: 95%;
+}
+
+/* usuário (direita) */
+.message.user {
+    background: #2563eb;
+    color: #ffffff;
+    margin-left: auto;
+}
+
+/* IA (esquerda) */
+.message.assistant {
+    background: #020b3a;
+    color: #e5e7eb;
+    margin-right: auto;
+}
+
+/* estado "digitando..." */
+.message.typing {
+    opacity: 0.7;
+    font-style: italic;
+}
