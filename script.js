@@ -6,21 +6,32 @@ const N8N_WEBHOOK_URL = "https://applications-n8n.ky0uhm.easypanel.host/webhook/
 
 /**
  * Converte o "markdownzinho" da IA em HTML:
- * - **negrito**  -> <strong>
- * - quebras de linha -> <br>
- * e escapa HTML perigoso antes.
+ * - #, ##, ### títulos  -> <strong>...</strong> (pode estilizar via CSS)
+ * - **negrito**         -> <strong>...</strong>
+ * - quebras de linha    -> <br>
+ * - "- " no começo da linha -> "• " (bullet simples)
  */
 function formatAssistantMessage(text) {
+  if (!text) return "";
+
   // 1) Escapar HTML básico
   let safe = text
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
-  // 2) **negrito**
+  // 2) Títulos markdown (#, ##, ###) no início da linha
+  safe = safe.replace(/^###\s+(.*)$/gm, "<strong>$1</strong>");
+  safe = safe.replace(/^##\s+(.*)$/gm, "<strong>$1</strong>");
+  safe = safe.replace(/^#\s+(.*)$/gm, "<strong>$1</strong>");
+
+  // 3) Listas: "- " no começo da linha -> "• "
+  safe = safe.replace(/^- /gm, "• ");
+
+  // 4) **negrito**
   safe = safe.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
-  // 3) Quebras de linha
+  // 5) Quebras de linha
   safe = safe.replace(/\n/g, "<br>");
 
   return safe;
@@ -31,7 +42,7 @@ function displayMessage(message, sender = 'user') {
   el.classList.add('message', sender);
 
   if (sender === 'assistant') {
-    // IA: interpreta negrito e quebras de linha
+    // IA: interpreta markdown básico
     el.innerHTML = formatAssistantMessage(message);
   } else {
     // Usuário: mostra exatamente o que digitou
